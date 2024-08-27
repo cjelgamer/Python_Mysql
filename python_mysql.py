@@ -15,7 +15,9 @@ class FormularioPeliculas:
         base = Tk()
         base.geometry("1200x300")
         base.title("Formulario Peliculas")
-           
+        
+        
+        #Primer group box para insertar datos   
         #panel que controla paneles mas pequeños 
         groupBox = LabelFrame(base,text = "Datos de las Peliculas", padx=5,pady=5)
         groupBox.grid(row=0,column=0,padx=10,pady=10)
@@ -47,6 +49,8 @@ class FormularioPeliculas:
         Button(groupBox,text="Editar",width=10).grid(row=4,column=1)
         Button(groupBox,text="Eliminar",width=10).grid(row=4,column=2)
         
+        
+        #Segundo group box para mostrar datos
         
         groupBox = LabelFrame(base,text="Lista de Peliculas",padx=5,pady=5)
         groupBox.grid(row=0,column=1,padx=5,pady=5)
