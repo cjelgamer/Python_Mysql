@@ -8,7 +8,7 @@ class CConexion:
             
             conexion = mysql.connector.connect(user = 'root',password='',
                                                host='127.0.0.1',
-                                               database='peliculadb',
+                                               database='peliculasdb',
                                                port='3306')
             
             print("Conexion Correcta")
