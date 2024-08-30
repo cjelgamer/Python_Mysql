@@ -7,11 +7,40 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
 
+from peliculas import *
+from Conexion import *
+
 class FormularioPeliculas:
-    
+ global textBoxId
+ textBoxId=None
+
+ global texBoxNombre
+ texBoxNombre=None
+
+ global texBoxDuracion
+ texBoxDuracion=None
+
+ global combo
+ ombo=None
+
+ global groupBox 
+ groupBox =None
+
+ global tree 
+ tree  =None
+
+
  def Formulario():
-    try:
-            
+  global textBoxId
+  global texBoxNombre
+  global texBoxDuracion
+  global combo
+  global base
+  global groupBox 
+  global tree 
+
+
+  try:      
         base = Tk()
         base.geometry("1200x300")
         base.title("Formulario Peliculas")
@@ -79,7 +108,7 @@ class FormularioPeliculas:
         base.mainloop()
             
             
-    except ValueError as error:
+  except ValueError as error:
             print("Error al mostrar la interfaz, el error es: {}".format(error))
                 
  Formulario()          
