@@ -1,6 +1,20 @@
 from Conexion import *
 
-class CClientes:
+class CPeliculas:
+
+    def mostrarPeliculas():
+        try:
+            cone = CConexion.ConexionBaseDeDatos()
+            cursor=cone.cursor()
+            cursor.execute("select * from pelicula;")
+            miresultado = cursor.fetchall()
+            cone.commit()
+            cone.close()
+            return miresultado
+
+        except mysql.connector.Error as error:
+            print("Error de mostrar datos {}".format(error))
+
 
     def ingresarpeliculas(nombre,duracion,genero):
 

@@ -11,6 +11,10 @@ from peliculas import *
 from Conexion import *
 
 class FormularioPeliculas:
+ 
+ global base
+ base=None
+
  global textBoxId
  textBoxId=None
 
@@ -21,16 +25,16 @@ class FormularioPeliculas:
  texBoxDuracion=None
 
  global combo
- ombo=None
+ combo=None
 
  global groupBox 
- groupBox =None
+ groupBox=None
 
  global tree 
- tree  =None
+ tree=None
 
 
- def Formulario():
+def Formulario():
   global textBoxId
   global texBoxNombre
   global texBoxDuracion
@@ -74,7 +78,7 @@ class FormularioPeliculas:
         combo.grid(row=3,column=1)
         seleccionGenero.set("Acción")
          
-        Button(groupBox,text="Insertar",width=10).grid(row=4,column=0)
+        Button(groupBox,text="Insertar",width=10,command=guardarRegistros).grid(row=4,column=0)
         Button(groupBox,text="Editar",width=10).grid(row=4,column=1)
         Button(groupBox,text="Eliminar",width=10).grid(row=4,column=2)
         
@@ -93,12 +97,14 @@ class FormularioPeliculas:
         tree.column("# 2",anchor=CENTER)
         tree.heading("# 2",text="Nombre")
             
-            
         tree.column("# 3",anchor=CENTER)
         tree.heading("# 3",text="Duracion")    
         
         tree.column("# 4",anchor=CENTER)
-        tree.heading("# 4",text="Genero")    
+        tree.heading("# 4",text="Genero")   
+
+        for row in CPeliculas.mostrarPeliculas():
+             tree.insert("","end",values=row) 
             
         tree.pack()
         
@@ -111,4 +117,41 @@ class FormularioPeliculas:
   except ValueError as error:
             print("Error al mostrar la interfaz, el error es: {}".format(error))
                 
- Formulario()          
+def guardarRegistros():
+      global texBoxNombre,texBoxDuracion,combo,groupBox
+
+
+
+      try:
+           if texBoxNombre is None or texBoxDuracion is None or combo is None:
+                print("Los widgedts de la sinterfaces no estan inicializados")
+                return
+           nombre = texBoxNombre.get()
+           duracion = texBoxDuracion.get()
+           genero = combo.get()
+
+           CPeliculas.ingresarpeliculas(nombre,duracion,genero)
+           messagebox.showinfo("Información, los mensajes fueron guardados")
+
+           actualizarTreeView()
+
+           texBoxNombre.delete(0,END)
+           texBoxDuracion.delete(0,END)
+      except ValueError as error:
+           print("Error al ingresar los datos {}".format(error))
+
+def actualizarTreeView():
+     global tree
+     
+     try:
+          #eliminamos el contenido, mas no los id
+          tree.delete(*tree.get_children())
+          datos = CPeliculas.mostrarPeliculas()
+          for row in CPeliculas.mostrarPeliculas():
+             tree.insert("","end",values=row)
+     except ValueError as error:
+          print("Error al actualizar tabla {}".format(error))
+
+
+
+Formulario()          
