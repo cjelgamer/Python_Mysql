@@ -35,7 +35,7 @@ class FormularioPeliculas:
 
 
 def Formulario():
-  global textBoxId
+  global texBoxId
   global texBoxNombre
   global texBoxDuracion
   global combo
@@ -79,8 +79,8 @@ def Formulario():
         seleccionGenero.set("Acción")
          
         Button(groupBox,text="Insertar",width=10,command=guardarRegistros).grid(row=4,column=0)
-        Button(groupBox,text="Editar",width=10).grid(row=4,column=1)
-        Button(groupBox,text="Eliminar",width=10).grid(row=4,column=2)
+        Button(groupBox,text="Editar",width=10,command=modificarRegistros).grid(row=4,column=1)
+        Button(groupBox,text="Eliminar",width=10,command=eliminarRegistros).grid(row=4,column=2)
         
         
         #Segundo group box para mostrar datos
@@ -105,10 +105,13 @@ def Formulario():
 
         for row in CPeliculas.mostrarPeliculas():
              tree.insert("","end",values=row) 
+
+
+        #selecciona run registro de la tabla
+
+        tree.bind("<<TreeviewSelect>>",seleccionarRegistro)
             
         tree.pack()
-        
-        
         
             
         base.mainloop()
@@ -119,8 +122,6 @@ def Formulario():
                 
 def guardarRegistros():
       global texBoxNombre,texBoxDuracion,combo,groupBox
-
-
 
       try:
            if texBoxNombre is None or texBoxDuracion is None or combo is None:
@@ -152,6 +153,65 @@ def actualizarTreeView():
      except ValueError as error:
           print("Error al actualizar tabla {}".format(error))
 
+def seleccionarRegistro(event):
+     try:
+          itemselec=tree.focus()
+
+          if itemselec:#obtenemos valores
+               valor = tree.item(itemselec)['values']
+               texBoxId.delete(0,END)
+               texBoxId.insert(0,valor[0])
+               texBoxNombre.delete(0,END)
+               texBoxNombre.insert(0,valor[1])
+               texBoxDuracion.delete(0,END)
+               texBoxDuracion.insert(0,valor[2])
+               combo.set(valor[3])
+     except ValueError as error:
+          print("Error al editar registro{}".format(error))
+
+def modificarRegistros():
+      global texBoxId,texBoxNombre,texBoxDuracion,combo,groupBox
+
+      try:
+           if texBoxId is None or texBoxNombre is None or texBoxDuracion is None or combo is None:
+                print("Los widgedts de la sinterfaces no estan inicializados")
+                return
+           idpelicula=texBoxId.get()
+           nombre = texBoxNombre.get()
+           duracion = texBoxDuracion.get()
+           genero = combo.get()
+
+           CPeliculas.modificarpeliculas(idpelicula,nombre,duracion,genero)
+           messagebox.showinfo("Información, los datos fueron actualizados")
+
+           actualizarTreeView()
+
+           texBoxId.delete(0,END)
+           texBoxNombre.delete(0,END)
+           texBoxDuracion.delete(0,END)
+      except ValueError as error:
+           print("Error al editar los datos {}".format(error))
+
+def eliminarRegistros():
+      global texBoxId,texBoxDuracion,texBoxNombre
+
+      try:
+           if texBoxId is None:
+                print("Los widgedts de la sinterfaces no estan inicializados")
+                return
+           idpelicula=texBoxId.get()
+
+
+           CPeliculas.eliminarpeliculas((idpelicula,))
+           messagebox.showinfo("Información, los datos fueron eliminados")
+
+           actualizarTreeView()
+
+           texBoxId.delete(0,END)
+           texBoxNombre.delete(0,END)
+           texBoxDuracion.delete(0,END)
+      except ValueError as error:
+           print("Error al ingresar los datos {}".format(error))
 
 
 Formulario()          
