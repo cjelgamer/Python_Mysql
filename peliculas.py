@@ -18,9 +18,9 @@ class CPeliculas:
 
 
     def ingresarpeliculas(nombre,duracion,genero):
-        #nombre=CPeliculas.verificarpeliculas(nombre)
-        #duracion=CPeliculas.verificarpeliculas(duracion)
-        #genero=CPeliculas.verificarpeliculas(genero)
+        nombre=CPeliculas.verificarpeliculas(nombre)
+        duracion=CPeliculas.verificarpeliculas(duracion)
+        genero=CPeliculas.verificarpeliculas(genero)
 
         try:
             cone = CConexion.ConexionBaseDeDatos()
@@ -36,10 +36,10 @@ class CPeliculas:
             print("Error de ingreso de datos {}".format(error))
 
     def modificarpeliculas(idpelicula,nombre,duracion,genero):
-        #idpelicula=CPeliculas.verificarpeliculas(idpelicula)
-        #nombre=CPeliculas.verificarpeliculas(nombre)
-        #duracion=CPeliculas.verificarpeliculas(duracion)
-        #genero=CPeliculas.verificarpeliculas(genero)
+        idpelicula=CPeliculas.verificarpeliculas(idpelicula)
+        nombre=CPeliculas.verificarpeliculas(nombre)
+        duracion=CPeliculas.verificarpeliculas(duracion)
+        genero=CPeliculas.verificarpeliculas(genero)
 
         try:
             cone = CConexion.ConexionBaseDeDatos()
@@ -55,7 +55,7 @@ class CPeliculas:
             print("Error de actualizacion {}".format(error))
 
     def eliminarpeliculas(idpelicula):
-        #idpelicula=CPeliculas.verificarpeliculas(idpelicula)
+        idpelicula=CPeliculas.verificarpeliculas(idpelicula)
 
         try:
             cone = CConexion.ConexionBaseDeDatos()
