@@ -6,7 +6,7 @@ class CConexion:
     def ConexionBaseDeDatos():
         try:
             
-            conexion = mysql.connector.connect(user = 'root',password='',
+            conexion = mysql.connector.connect(user = 'root',password='misql',
                                                host='127.0.0.1',
                                                database='peliculasdb',
                                                port='3306')
