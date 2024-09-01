@@ -18,6 +18,9 @@ class CPeliculas:
 
 
     def ingresarpeliculas(nombre,duracion,genero):
+        #nombre=CPeliculas.verificarpeliculas(nombre)
+        #duracion=CPeliculas.verificarpeliculas(duracion)
+        #genero=CPeliculas.verificarpeliculas(genero)
 
         try:
             cone = CConexion.ConexionBaseDeDatos()
@@ -34,6 +37,9 @@ class CPeliculas:
 
     def modificarpeliculas(idpelicula,nombre,duracion,genero):
         #idpelicula=CPeliculas.verificarpeliculas(idpelicula)
+        #nombre=CPeliculas.verificarpeliculas(nombre)
+        #duracion=CPeliculas.verificarpeliculas(duracion)
+        #genero=CPeliculas.verificarpeliculas(genero)
 
         try:
             cone = CConexion.ConexionBaseDeDatos()
@@ -49,6 +55,7 @@ class CPeliculas:
             print("Error de actualizacion {}".format(error))
 
     def eliminarpeliculas(idpelicula):
+        #idpelicula=CPeliculas.verificarpeliculas(idpelicula)
 
         try:
             cone = CConexion.ConexionBaseDeDatos()
@@ -66,25 +73,16 @@ class CPeliculas:
     def limpiarPeliculas(cadena):
         cadena= cadena.strip()  # Elimina espacios al inicio y al final
         cadena= cadena.replace("\\", "")
-        cadena= re.sub("<script>", "", cadena, flags=re.IGNORECASE)
-        cadena= re.sub("</script>", "", cadena, flags=re.IGNORECASE)
-        cadena= re.sub("<script type=", "", cadena, flags=re.IGNORECASE)
-        cadena= re.sub("SELECT * FROM", "", cadena, flags=re.IGNORECASE)
-        cadena= re.sub("DELETE FROM", "", cadena, flags=re.IGNORECASE)
-        cadena= re.sub("INSERT INTO", "", cadena, flags=re.IGNORECASE)
-        cadena= re.sub("DROP TABLE", "", cadena, flags=re.IGNORECASE)
-        cadena= re.sub("DROP DATABASE", "", cadena, flags=re.IGNORECASE)
-        cadena= re.sub("TRUNCATE TABLE", "", cadena, flags=re.IGNORECASE)
-        cadena= re.sub("SHOW TABLES", "", cadena, flags=re.IGNORECASE)
-        cadena= re.sub("SHOW DATABASES", "", cadena, flags=re.IGNORECASE)
-        cadena= re.sub("--", "", cadena, flags=re.IGNORECASE)
-        cadena= re.sub("^", "", cadena, flags=re.IGNORECASE)
-        cadena= re.sub("<", "", cadena, flags=re.IGNORECASE)
-        cadena= re.sub("[", "", cadena, flags=re.IGNORECASE)
-        cadena= re.sub("]", "", cadena, flags=re.IGNORECASE)
-        cadena= re.sub("==", "", cadena, flags=re.IGNORECASE)
-        cadena= re.sub(";", "", cadena, flags=re.IGNORECASE)
-        cadena= re.sub("::", "", cadena, flags=re.IGNORECASE)
+        cadena = re.sub(r"(?i)SELECT\s+.*?\s+FROM", "", cadena)
+        cadena = re.sub(r"(?i)DELETE\s+FROM", "", cadena)
+        cadena = re.sub(r"(?i)INSERT\s+INTO", "", cadena)
+        cadena = re.sub(r"(?i)DROP\s+TABLE", "", cadena)
+        cadena = re.sub(r"(?i)DROP\s+DATABASE", "", cadena)
+        cadena = re.sub(r"(?i)TRUNCATE\s+TABLE", "", cadena)
+        cadena = re.sub(r"(?i)SHOW\s+TABLES", "", cadena)
+        cadena = re.sub(r"(?i)SHOW\s+DATABASES", "", cadena)
+        cadena = re.sub(r"(?i)--", "", cadena)
+        cadena = re.sub(r"[<>;']", "", cadena)  # Elimina caracteres peligrosos
         return cadena
 
     def verificarpeliculas(atrpelicula):
