@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
-from PIL import Image, ImageTk  # Importar PIL para manejar imágenes
+from PIL import Image, ImageTk
 from peliculas import *
 from Conexion import *
 
