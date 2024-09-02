@@ -214,7 +214,7 @@ def eliminarRegistros():
             return
         idpelicula = texBoxId.get()
 
-        CPeliculas.eliminarpeliculas((idpelicula,))
+        CPeliculas.eliminarpeliculas(idpelicula)
         messagebox.showinfo("Información", "Los datos fueron eliminados")
 
         actualizarTreeView()
