@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
-from PIL import Image, ImageTk  # Importar PIL para manejar imágenes
+from PIL import Image, ImageTk
 from peliculas import *
 from Conexion import *
 
@@ -214,7 +214,7 @@ def eliminarRegistros():
             return
         idpelicula = texBoxId.get()
 
-        CPeliculas.eliminarpeliculas((idpelicula,))
+        CPeliculas.eliminarpeliculas(idpelicula)
         messagebox.showinfo("Información", "Los datos fueron eliminados")
 
         actualizarTreeView()
